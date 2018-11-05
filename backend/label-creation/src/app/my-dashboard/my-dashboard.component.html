@@ -1,0 +1,34 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Label Option Dashboard</h1>
+  <mat-grid-list cols="6" rowHeight="400px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            <h2>{{card.title}}</h2>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div *ngIf="card.title === 'Current Labels'">
+            <div class="viewport">
+              <div *uiScroll="let item of datasource">
+                <mat-card class="item-card" [ngClass]="{'item-focused': isSelected(item.name)}" (click)="expand(item)">
+                  <mat-card-header>
+                    <mat-card-title style="position: sticky; top:0; z-index:1;">
+                      <h3>
+                        {{item.name}}
+                      </h3>
+                    </mat-card-title>
+                  </mat-card-header>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="card.title === 'Options'">
+            <app-option-cards></app-option-cards>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
